@@ -456,10 +456,94 @@ from xml.dom.minidom import CharacterData
 # print(distance)
 
 
+# 1703
+# import sys
+# while True:
+#   a = list(map(int, sys.stdin.readline().split()))
+#   if len(a) == 1: break
+#   cnt = 1
+#   for i in range(1, a[0] * 2, 2):
+#     cnt *= a[i]
+#     cnt -= a[i+1]
+#   print(cnt)
+
+
 # 1837
+# a, b = map(int, input().split())
+# for i in range(2, b):
+#   if a % i == 0:
+#     a = 1
+#     print(f"BAD {i}")
+#     break
+# if (a != 1): print("GOOD")
 
 
+# 5717
+# while True:
+#   a = sum(list(map(int, input().split())))
+#   if a > 0: print(a)
+#   else: break
 
+
+# 2446
+# n = int(input())
+# space = 0
+# star = 2*n+1
+# for i in range(2*n-1):
+#   if i < n:
+#     space = i
+#     star -=2
+#   else:
+#     space -= 1
+#     star += 2
+#   print(" "*space, end="")
+#   print("*"*star)
+
+
+# 2442
+# n = int(input())
+# for i in range(n):
+#     print(" "*(n-1-i), end="")
+#     print("*"*(2*i+1))
+
+
+# 23802
+# n = int(input())
+# print(*["@"*n]* (5*n-n), sep="\n")
+# print(*["@"*5*n + "\n"] * (n-1) + ["@"*5*n], sep="")
+
+
+# 23804
+# n = int(input())
+# print(*["@@@@@"*n]*n, sep="\n")
+# print(*["@"*n]*(3*n),sep="\n")
+# print(*["@@@@@"*n]*n, sep="\n")
+
+
+# 14916
+# n = int(input())
+# cnt = 0
+# while n >= 0:
+#     if (n == 1 or n == 3):
+#         print("-1")
+#         break
+#     if n % 5 == 0:
+#         cnt += (n // 5)
+#         print(cnt)
+#         break
+#     else:
+#         cnt += 1
+#         n -= 2
+
+
+# 2217
+# import sys
+# n = int(input())
+# w = list(int(sys.stdin.readline().strip()) for _ in range(n))
+# w.sort(reverse=True)
+# for i in range(len(w)):
+#     w[i] *= i+1
+# print(max(w))
 
 
 
