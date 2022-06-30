@@ -16,6 +16,7 @@
 
 # 15552
 from math import perm
+from re import X
 import sys
 from xml.dom.minidom import CharacterData
 
@@ -546,25 +547,83 @@ from xml.dom.minidom import CharacterData
 # print(max(w))
 
 
+# 13305
+# import sys
+# n = int(input())
+# result = 0
+# min = 0
+# dist = list(map(int, sys.stdin.readline().split()))
+# perL = list(map(int, sys.stdin.readline().split()))
+# if (sum(perL) == n):
+#     print(perL[0] * sum(dist))
+# else:
+#     for i in range(n-1):
+#         if perL[min] > perL[i]: min = i
+#         result+= perL[min] * dist[i]
+#     print(result)
 
 
+# 1758
+# import sys
+# n = int(input())
+# li = list(int(sys.stdin.readline().strip()) for _ in range(n))
+# li.sort(reverse=True)
+# result = 0
+# for i in range(len(li)):
+#     # if li[i]+1 <= (i+1):
+#     #     li[i] = 0
+#     # else:
+#     #     li[i] = li[i] + 1 - (i+1)
+#     tip = li[i] - i
+#     if tip > 0:
+#         result += tip
+# print(result)
 
 
+# 11508
+# import sys
+# n = int(input())
+# li = list(int(sys.stdin.readline().strip()) for _ in range(n))
+# li.sort(reverse=True)
+# result = 0
+# a = 0
+# if n < 3:
+#     result = sum(li)
+# else:
+#     for i in range(0, n - (n % 3), 3):
+#         result += (li[i] + li[i+1])
+#         a = i
+#     if (n % 3 != 0):
+#         a += 3
+#         for i in range(n % 3):
+#             result += li[a+i]
+# # cnt_3 = 1
+# # for i in li:
+# #     if cnt_3 == 3:
+# #         cnt_3 = 1
+# #         continue
+# #     result += i
+# #     cnt_3 += 1
+# # print(result)
 
 
+# 11399
+# import sys
+# n = int(input())
+# li = list(map(int, sys.stdin.readline().split()))
+# li.sort()
+# result = 0
+# for i in range(n):
+#     result += sum(li[:i+1])
+# print(result)
 
 
-# a = ['1', '2', '3', '4', '5']
-# from itertools import permutations
-# from itertools import combinations
-# from itertools import product
-# from itertools import combinations_with_replacement
-# print(list(permutations(a, 3)))
-# print("\n\n")
-# print(list(combinations(a,3)))
-# print()
-# print("\n\n")
-# print(list(product(a, repeat=3)))
-# print()
-# print("\n\n")
-# print(list(combinations_with_replacement(a, 3)))
+# 20115
+# import sys
+# n = int(input())
+# li = list(map(int, sys.stdin.readline().split()))
+# li.sort()
+# result = li[n-1]
+# for i in range(n-1):
+#     result += li[i]/2
+# print(result)
