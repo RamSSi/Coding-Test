@@ -84,6 +84,34 @@
 
 
 # 1325
+import sys
+N, M = map(int, input().split())
+hack = [[] for _ in range(N+1)]
+curr_visited = set()
+for _ in range(M):
+	a, b = map(int, sys.stdin.readline().split())
+	hack[b].append(a)
+visit = [0] * (N+1)
+global n
+def dfs(v):
+	curr_visited.add(v)
+	global n
+	n += 1 
+	for i in hack[v]:
+		if i not in curr_visited:
+			dfs(i)
+
+for i in range(1, N+1):
+	n = 0
+	dfs(i)
+	visit[i] = n
+	curr_visited = set()
+k = max(visit)
+print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
+
+
+
+
 # import math
 # import time
 # import sys
@@ -122,4 +150,64 @@
 # print(*result)
 
 
-# 
+# 2178
+# import sys
+# from collections import deque
+# N, M = map(int, input().split())
+
+# maze = [list(sys.stdin.readline().strip()) for _ in range(N)]
+# dx = [-1, 1, 0, 0]
+# dy = [0, 0, -1, 1]
+
+
+# def minShift(maze, N, M):
+#     maze[0][0] = 1
+#     queue = deque()
+#     queue.append((0, 0))
+#     while queue:
+#         x, y = queue.popleft()
+#         for i in range(4):
+#             nx = x + dx[i]
+#             ny = y + dy[i]
+#             if nx < 0 or ny < 0 or nx > (N-1) or ny > (M-1):
+#                 continue
+#             if maze[nx][ny] == '1':
+#                 maze[nx][ny] = maze[x][y] + 1
+#                 queue.append((nx, ny))
+#     print(maze[N-1][M-1])
+
+# minShift(maze, N, M)
+
+
+# 2667
+# import sys
+
+# N = int(input())
+# exist = [list(sys.stdin.readline().strip()) for _ in range(N)]
+
+# dx = [-1, 1, 0, 0]
+# dy = [0, 0, -1, 1]
+# cnt = []
+# global n
+# n = 0
+# def complex(x, y):
+#     global n
+#     if x < 0 or y < 0 or x > (N-1) or y > (N-1):
+#         return False
+    
+#     if exist[x][y] == '1':
+#         exist[x][y] = n + 1
+#         complex(x-1, y)
+#         complex(x+1, y)
+#         complex(x, y-1)
+#         complex(x, y+1)
+#         n = n + 1
+
+# for i in range(N):
+#     for j in range(N):
+#         complex(i, j)
+#         if n > 0: cnt.append(n)
+#         n = 0
+# print(len(cnt))
+# cnt.sort()
+# print(*cnt, sep="\n")
