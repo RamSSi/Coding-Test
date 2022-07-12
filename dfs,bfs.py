@@ -84,70 +84,31 @@
 
 
 # 1325
-import sys
-N, M = map(int, input().split())
-hack = [[] for _ in range(N+1)]
-curr_visited = set()
-for _ in range(M):
-	a, b = map(int, sys.stdin.readline().split())
-	hack[b].append(a)
-visit = [0] * (N+1)
-global n
-def dfs(v):
-	curr_visited.add(v)
-	global n
-	n += 1 
-	for i in hack[v]:
-		if i not in curr_visited:
-			dfs(i)
-
-for i in range(1, N+1):
-	n = 0
-	dfs(i)
-	visit[i] = n
-	curr_visited = set()
-k = max(visit)
-print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
-
-
-
-
-# import math
-# import time
 # import sys
-# from collections import deque
-
 # N, M = map(int, input().split())
-# graph = [[] for _ in range(N + 1)]
-# start = time.time()
+# hack = [[] for _ in range(N+1)]
+# curr_visited = set()
 # for _ in range(M):
-#     a, b = map(int, sys.stdin.readline().split())
-#     graph[b].append(a)
-# end = time.time()
-# print(f"{end - start:.5f} sec")
+# 	a, b = map(int, sys.stdin.readline().split())
+# 	hack[b].append(a)
+# visit = [0] * (N+1)
+# global n
+# def dfs(v):
+# 	curr_visited.add(v)
+# 	global n
+# 	n += 1 
+# 	for i in hack[v]:
+# 		if i not in curr_visited:
+# 			dfs(i)
 
-# def bfs(start):
-#     visited = [False] * (N + 1)
-#     queue = deque([start])
-#     visited[start] = True
-#     while queue:
-#         v = queue.popleft()
-#         for i in graph[v]:
-#             if not visited[i]:
-#                 queue.append(i)
-#                 visited[i] = True
-#     return visited.count(True)
+# for i in range(1, N+1):
+# 	n = 0
+# 	dfs(i)
+# 	visit[i] = n
+# 	curr_visited = set()
+# k = max(visit)
+# print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
 
-# num = []
-# for i in range(N + 1):
-#     num.append(bfs(i))
-
-# k = num.index(max(num))
-# result = [k]
-# for i in range(k+1, N+1):
-#     if num[i] == num[k]:
-#         result.append(i)
-# print(*result)
 
 
 # 2178
@@ -211,3 +172,23 @@ print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
 # print(len(cnt))
 # cnt.sort()
 # print(*cnt, sep="\n")
+
+
+
+# 16918 : 봄버맨
+import sys
+R, C, N = map(int, input().split())
+state = [[sys.stdin.readline().strip()] for _ in range(R)]
+
+
+
+def searchBomb(x, y, second) :
+    if second == 1:
+        print(*state)
+    elif second % 2 == 0:
+        state = [['O'*C]*R]
+        print(*state, sep="\n")
+    elif second % 2 == 1:
+        print("a")
+
+searchBomb(0, 0, N)
