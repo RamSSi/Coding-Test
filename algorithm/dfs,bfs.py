@@ -1,15 +1,17 @@
 from collections import deque
-# graph = [
-#     [],
-#     [2, 3, 8],
-#     [1, 7],
-#     [1, 4, 5],
-#     [3, 5],
-#     [3, 4],
-#     [7],
-#     [2, 6, 8],
-#     [1, 7],
-# ]
+graph = [
+    [],
+    [2, 3, 8],
+    [1, 7],
+    [1, 4, 5],
+    [3, 5],
+    [3, 4],
+    [7],
+    [2, 6, 8],
+    [1, 7],
+]
+
+visited = [False] * 9
 
 
 # # dfs
@@ -47,27 +49,27 @@ from collections import deque
 
 
 # 인접 행렬로도 dfs 만들어보기
-INF = 99
-graph_matrix = [
-    [],
-    [INF, 0, 1, 1, INF, INF, INF, INF, 1],
-    [INF, 1, 0, INF, INF, INF, INF, 1, INF],
-    [INF, 1, INF, 0, 1, 1, INF, INF, INF],
-    [INF, INF, INF, 1, 0, 1, INF, INF, INF],
-    [INF, INF, INF, 1, 1, 0, INF, INF, INF],
-    [INF, INF, INF, INF, INF, INF, 0, 1, INF],
-    [INF, INF, 1, INF, INF, INF, 1, 0, 1],
-    [INF, 1, INF, INF, INF, INF, INF, 1, 0]
-]
+# INF = 99
+# graph_matrix = [
+#     [],
+#     [INF, 0, 1, 1, INF, INF, INF, INF, 1],
+#     [INF, 1, 0, INF, INF, INF, INF, 1, INF],
+#     [INF, 1, INF, 0, 1, 1, INF, INF, INF],
+#     [INF, INF, INF, 1, 0, 1, INF, INF, INF],
+#     [INF, INF, INF, 1, 1, 0, INF, INF, INF],
+#     [INF, INF, INF, INF, INF, INF, 0, 1, INF],
+#     [INF, INF, 1, INF, INF, INF, 1, 0, 1],
+#     [INF, 1, INF, INF, INF, INF, INF, 1, 0]
+# ]
 
-visited_matrix = [False] * 9
-print(visited_matrix)
+# visited_matrix = [False] * 9
+# print(visited_matrix)
 
-def dfs_matrix(graph, v, visited):
-    visited[v] = True
-    print(visited)
-    print("방문순서 : ", v)
-    for i in range(9):
-        if graph[v][i] == 1 and not visited[i]:
-            dfs_matrix(graph, i, visited)
-dfs_matrix(graph_matrix, 1, visited_matrix)
+# def dfs_matrix(graph, v, visited):
+#     visited[v] = True
+#     print(visited)
+#     print("방문순서 : ", v)
+#     for i in range(9):
+#         if graph[v][i] == 1 and not visited[i]:
+#             dfs_matrix(graph, i, visited)
+# dfs_matrix(graph_matrix, 1, visited_matrix)
