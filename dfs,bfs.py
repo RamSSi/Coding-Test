@@ -126,45 +126,66 @@
 
 
 
-# 11725
+# # 11725
+# # from collections import deque
+# # import sys
+
+# # def bfs(start, parentNode):
+# #     queue = deque([start])
+# #     parent[start] = 1
+# #     while queue:
+# #         v = queue.popleft()
+# #         parentNode = v
+# #         for i in graph[parentNode]:
+# #             if not parent[i]:
+# #                 queue.append(i)
+# #                 parent[i] = parentNode
+
+
+# # N = int(input())
+
+# # graph = [[] for _ in range(N + 1)]
+# # parent = [0] * (N + 1)
+# # for _ in range(N - 1):
+# #     a, b = map(int, sys.stdin.readline().split())
+# #     graph[a].append(b)
+# #     graph[b].append(a)
+# # bfs(1, 0)
+# # print(*parent[2:], sep="\n")
+
 # from collections import deque
 # import sys
-
-# def bfs(start, parentNode):
-#     queue = deque([start])
-#     parent[start] = 1
-#     while queue:
-#         v = queue.popleft()
-#         parentNode = v
-#         for i in graph[parentNode]:
-#             if not parent[i]:
-#                 queue.append(i)
-#                 parent[i] = parentNode
-
-
 # N = int(input())
-
 # graph = [[] for _ in range(N + 1)]
 # parent = [0] * (N + 1)
-# for _ in range(N - 1):
-#     a, b = map(int, sys.stdin.readline().split())
-#     graph[a].append(b)
-#     graph[b].append(a)
-# bfs(1, 0)
+# visited = [False] * (N + 1)
+# def inputGraph(graph, N):
+#     for _ in range(N-1):
+#         a, b = map(int, sys.stdin.readline().split())
+#         graph[a].append(b)
+#         graph[b].append(a)
+
+# # def dfs(graph, v, visited, parent):
+# #     visited[v] = True
+# #     for i in graph[v]:
+# #         if not visited[i]:
+# #             parent[i] = v
+# #             dfs(graph, i, visited, parent)
+
+# def bfs(graph, start, visited, parent):
+#     queue = deque([start])
+#     visited[start] = True
+#     while(queue):
+#         v = queue.popleft()
+#         for i in graph[v]:
+#             if not visited[i]:
+#                 queue.append(i)
+#                 parent[i] = v
+#                 visited[i] = True
+
+# inputGraph(graph, N)
+# bfs(graph, 1, visited, parent)
 # print(*parent[2:], sep="\n")
-
-import sys
-N = int(input())
-graph = [[] for _ in range(N + 1)]
-
-def inputGraph(graph, N):
-    for _ in range(N-1):
-        a, b = map(int, sys.stdin.readline().split())
-        graph[a].append(b)
-        graph[b].append(a)
-
-def 
-
 
 # 1325
 # import sys
@@ -320,16 +341,43 @@ def
 
 
 # 16918 : 봄버맨
-# import sys
+import sys
 
-# R, C, N = map(int, input().split())
-# graph = [[sys.stdin.readline()] for _ in range(N)]
+R, C, N = map(int, input().split())
+graph = [sys.stdin.readline().strip() for _ in range(R)]
+graph_result = [['O'*C]*R]
 
-# def bomb(graph, R, C, N):
-#     if (N % 2 == 0):
-#         graph = [['O'*C] * N]
-#     elif (N % 4 == 3):
-#         # 초기 폭탄이 터지고, 나머지는 폭탄이 존재
-#     elif (N % 4 == 1):
-#         # c초기
+def bomb(graph, R, C, N):
+    print(*graph, sep='\n')
+    if (N % 2 == 0):
+        print(*graph_result, sep='\n')
+    elif (N % 4 == 3):
+        # 초기 폭탄이 터지고, 나머지는 폭탄이 존재
+        print(*firstBomb(graph, graph_result, R, C), sep='\n')
+    elif (N % 4 == 1):
+        print(*graph, sep='\n')
         
+def firstBomb(graph,graph_result, R, C):
+    bomb = []
+    x = [1, -1, 0, 0]
+    y = [0, 0, 1, -1]
+    print(R, C)
+    for i in range(R):
+        for j in range(C):
+            print(i, j, graph[i][j])
+            
+            if graph[i][j] == 'O':
+                bomb.append((i, j))
+    print(bomb)
+    for (m, n) in bomb:
+        graph_result[m][n] = '.'
+        for i in range(4):
+            mx = m + x[i]
+            ny = n + y[i]
+            if (mx >= R or ny >= R or mx < 0 or ny < 0):
+                continue
+            graph_result[mx][ny] = '.'
+    return graph_result
+
+
+bomb(graph, R, C, N)
