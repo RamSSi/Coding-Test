@@ -627,3 +627,56 @@
 # for i in range(n-1):
 #     result += li[i]/2
 # print(result)
+
+
+
+# # 12933
+# case = list(input())
+# N = len(case)
+# result = []
+# cnt = []
+
+# def isCurrentDuck(cnt, i):  # cnt는 word 순서, i는 현재 문자열, 
+#     word = 'quack'
+#     if word[cnt] == i:
+#         return True
+#     else:
+#         return False
+
+# def appendDuck(word, c):
+#     word.append(c)
+#     return word
+
+# n = 1
+# def checkStr(result, case, N, cnt, n):
+#     for i in case:   # 입력받은 문자열
+#         n+=1
+#         if i == 'q' and len(result) == 0:
+#             result.append(list('q'))
+#             cnt.append(1)
+#             continue
+
+#         isDuck = 0
+#         for j in range(len(result)):
+#             isDuck = isCurrentDuck(cnt[j] % 5, i)
+#             if isDuck: 
+#                 result[j].append(i)
+#                 cnt[j] += 1
+#                 break
+#         if not isDuck:
+#             if i == 'q':
+#                 result.append(list('q'))
+#                 cnt.append(1)
+#             else:
+#                 print(-1)
+#                 return
+#     for duck in result:
+#         if duck[-1] != 'k':
+#             print(-1)
+#             return
+#     print(len(result))
+
+# checkStr(result, case, N, cnt, n)
+    
+
+

@@ -340,44 +340,74 @@
 
 
 
-# 16918 : 봄버맨
-import sys
+# # 16918 : 봄버맨
+# import sys
 
-R, C, N = map(int, input().split())
-graph = [sys.stdin.readline().strip() for _ in range(R)]
-graph_result = [['O'*C]*R]
+# R, C, N = map(int, input().split())
+# graph = [sys.stdin.readline().strip() for _ in range(R)]
+# graph_result = list(['O' for _ in range(C)] for _ in range(R))
 
-def bomb(graph, R, C, N):
-    print(*graph, sep='\n')
-    if (N % 2 == 0):
-        print(*graph_result, sep='\n')
-    elif (N % 4 == 3):
-        # 초기 폭탄이 터지고, 나머지는 폭탄이 존재
-        print(*firstBomb(graph, graph_result, R, C), sep='\n')
-    elif (N % 4 == 1):
-        print(*graph, sep='\n')
+# def bombCase(graph, R, C, N):
+#     if (N % 2 == 0):
+#         for i in graph_result:
+#             print(*i, sep='')
+#     elif (N % 4 == 3):
+#         # 초기 폭탄이 터지고, 나머지는 폭탄이 존재
+#         a = firstBomb(graph, graph_result, R, C)
+#         for i in range(R):
+#             print(*a[i], sep='')
+#     elif (N % 4 == 1):
+#         print(*graph, sep='\n')
         
-def firstBomb(graph,graph_result, R, C):
-    bomb = []
-    x = [1, -1, 0, 0]
-    y = [0, 0, 1, -1]
-    print(R, C)
+# def bomb(graph,graph_result, R, C):
+#     bomb = []
+#     x = [1, -1, 0, 0]
+#     y = [0, 0, 1, -1]
+#     for i in range(R):
+#         for j in range(C):
+#             if graph[i][j] == 'O':
+#                 bomb.append((i, j))
+#     for (m, n) in bomb:
+#         graph_result[m][n] = '.'
+#         for i in range(4):
+#             mx = m + x[i]
+#             ny = n + y[i]
+#             if (mx >= R or ny >= R or mx < 0 or ny < 0):
+#                 continue
+#             graph_result[mx][ny] = '.'
+#     return graph_result
+
+
+# bombCase(graph, R, C, N)
+
+import sys
+R, C, N = map(int, sys.stdin.readline().split())
+graph = [list(sys.stdin.readline().strip()) for _ in range(R)]
+graph_result = list(['O' for _ in range(C)] for _ in range(R))
+bombArr = []
+xArr = [0, 0, 1, -1]
+yArr = [1, -1, 0, 0]
+
+if N == 1:
+    print(*graph, sep="")
+elif N % 2 == 0:
+    for i in graph_result:
+        print(*i, sep="")
+elif N != 1 and N % 4 == 1:
     for i in range(R):
         for j in range(C):
-            print(i, j, graph[i][j])
-            
             if graph[i][j] == 'O':
-                bomb.append((i, j))
-    print(bomb)
-    for (m, n) in bomb:
-        graph_result[m][n] = '.'
+                bombArr.append((i, j))
+    for (x, y) in bombArr:
         for i in range(4):
-            mx = m + x[i]
-            ny = n + y[i]
-            if (mx >= R or ny >= R or mx < 0 or ny < 0):
+            nx = x + xArr[i]
+            ny = y + yArr[i]
+            if (nx < 0 or ny < 0 or nx == R or ny == C):
                 continue
-            graph_result[mx][ny] = '.'
-    return graph_result
+            graph_result[nx][ny] == '.'
+    for i in graph_result:
+        print(*i, sep="")
+else:
+    
 
 
-bomb(graph, R, C, N)
