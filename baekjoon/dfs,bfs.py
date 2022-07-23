@@ -187,63 +187,74 @@
 # bfs(graph, 1, visited, parent)
 # print(*parent[2:], sep="\n")
 
-# 1325
+
+
+# # 1325 : 효율적인 해킹
+# from collections import deque
 # import sys
+
+# def bfs(graph, start, N):
+#     flag = [False] * (N + 1)
+#     queue = deque([start])
+#     flag[start] = True
+#     cnt = 1
+#     while(queue):
+#         v = queue.popleft()
+#         for i in graph[v]:
+#             if not flag[i]:
+#                 queue.append(i)
+#                 flag[i] = True
+#                 cnt += 1
+#     return cnt
+
 # N, M = map(int, input().split())
-# hack = [[] for _ in range(N+1)]
-# curr_visited = set()
-# for _ in range(M):
-# 	a, b = map(int, sys.stdin.readline().split())
-# 	hack[b].append(a)
-# visit = [0] * (N+1)
-# global n
-# def dfs(v):
-# 	curr_visited.add(v)
-# 	global n
-# 	n += 1 
-# 	for i in hack[v]:
-# 		if i not in curr_visited:
-# 			dfs(i)
-
-# for i in range(1, N+1):
-# 	n = 0
-# 	dfs(i)
-# 	visit[i] = n
-# 	curr_visited = set()
-# k = max(visit)
-# print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
-
-
-
-# 2178
-# import sys
-# N, M = map(int, input().split())
-# hack = [[] for _ in range(N+1)]
-# curr_visited = set()
-# for _ in range(M):
+# arr = [[] for _ in range(N+1)]
+# for i in range(M):
 #     a, b = map(int, sys.stdin.readline().split())
-#     hack[b].append(a)
-# visit = [0] * (N+1)
-# global n
+#     arr[b].append(a)
 
-
-# def dfs(v):
-#     curr_visited.add(v)
-#     global n
-#     n += 1
-#     for i in hack[v]:
-#         if i not in curr_visited:
-#             dfs(i)
-
-
+# maxHack = 0
+# maxlist = []
 # for i in range(1, N+1):
-#     n = 0
-#     dfs(i)
-#     visit[i] = n
-#     curr_visited = set()
-# k = max(visit)
-# print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
+#     result = bfs(arr, i, N)
+#     if maxHack > result:
+#         continue
+#     elif maxHack == result:
+#         maxlist.append(i)
+#     else:
+#         maxHack = result
+#         maxlist = [i]
 
+# print(*maxlist, sep=" ")
+
+
+
+# # # 2178
+# # import sys
+# # N, M = map(int, input().split())
+# # hack = [[] for _ in range(N+1)]
+# # curr_visited = set()
+# # for _ in range(M):
+# #     a, b = map(int, sys.stdin.readline().split())
+# #     hack[b].append(a)
+# # visit = [0] * (N+1)
+# # global n
+
+# # def dfs(v):
+# #     curr_visited.add(v)
+# #     global n
+# #     n += 1
+# #     for i in hack[v]:
+# #         if i not in curr_visited:
+# #             dfs(i)
+
+# # for i in range(1, N+1):
+# #     n = 0
+# #     dfs(i)
+# #     visit[i] = n
+# #     curr_visited = set()
+# # k = max(visit)
+# # print(*list(filter(lambda i: visit[i] == k, range(1, N+1))))
 
 # import math
 # import time
@@ -255,7 +266,6 @@
 # dx = [-1, 1, 0, 0]
 # dy = [0, 0, -1, 1]
 
-
 # def minShift(maze, N, M):
 #     maze[0][0] = 1
 #     queue = deque()
@@ -273,6 +283,7 @@
 #     print(maze[N-1][M-1])
 
 # minShift(maze, N, M)
+
 
 
 # 2178
@@ -285,7 +296,6 @@
 # dx = [-1, 1, 0, 0]
 # dy = [0, 0, -1, 1]
 
-
 # def minShift(maze, N, M):
 #     maze[0][0] = 1
 #     queue = deque()
@@ -303,6 +313,7 @@
 #     print(maze[N-1][M-1])
 
 # minShift(maze, N, M)
+
 
 
 # 2667
@@ -340,74 +351,88 @@
 
 
 
-# # 16918 : 봄버맨
+# # # 16918 : 봄버맨
 # import sys
+# R, C, N = map(int, sys.stdin.readline().split())
+# graph = [list(sys.stdin.readline().strip()) for _ in range(R)]
 
-# R, C, N = map(int, input().split())
-# graph = [sys.stdin.readline().strip() for _ in range(R)]
-# graph_result = list(['O' for _ in range(C)] for _ in range(R))
-
-# def bombCase(graph, R, C, N):
-#     if (N % 2 == 0):
-#         for i in graph_result:
-#             print(*i, sep='')
-#     elif (N % 4 == 3):
-#         # 초기 폭탄이 터지고, 나머지는 폭탄이 존재
-#         a = firstBomb(graph, graph_result, R, C)
+# def bomb(graph, N):
+#     if N == 1:
+#         return graph
+#     elif N % 2 == 0:
+#         return list(['O' for _ in range(C)] for _ in range(R))
+#     elif N % 4 == 3:
+#         graph2 = list(['O' for _ in range(C)] for _ in range(R))
+#         bombArr = []
+#         xArr = [0, 0, 0, 1, -1]
+#         yArr = [0, 1, -1, 0, 0]
 #         for i in range(R):
-#             print(*a[i], sep='')
-#     elif (N % 4 == 1):
-#         print(*graph, sep='\n')
+#             for j in range(C):
+#                 if graph[i][j] == 'O':
+#                     bombArr.append((i, j))
+#         for (x, y) in bombArr:
+#             for i in range(5):
+#                 nx = x + xArr[i]
+#                 ny = y + yArr[i]
+#                 if (nx < 0 or ny < 0 or nx == R or ny == C):
+#                     continue
+#                 graph2[nx][ny] = '.'
+#         return graph2
+#     elif N != 1 and N % 4 == 1:
+#         graph3 = bomb(graph, 3)
+#         return bomb(graph3, 3)
         
-# def bomb(graph,graph_result, R, C):
-#     bomb = []
-#     x = [1, -1, 0, 0]
-#     y = [0, 0, 1, -1]
-#     for i in range(R):
-#         for j in range(C):
-#             if graph[i][j] == 'O':
-#                 bomb.append((i, j))
-#     for (m, n) in bomb:
-#         graph_result[m][n] = '.'
-#         for i in range(4):
-#             mx = m + x[i]
-#             ny = n + y[i]
-#             if (mx >= R or ny >= R or mx < 0 or ny < 0):
-#                 continue
-#             graph_result[mx][ny] = '.'
-#     return graph_result
+# graph_result = bomb(graph, N)
+# for i in graph_result:
+#     print(*i, sep="")
 
 
-# bombCase(graph, R, C, N)
 
+# 7576 : 토마토
 import sys
-R, C, N = map(int, sys.stdin.readline().split())
-graph = [list(sys.stdin.readline().strip()) for _ in range(R)]
-graph_result = list(['O' for _ in range(C)] for _ in range(R))
-bombArr = []
-xArr = [0, 0, 1, -1]
-yArr = [1, -1, 0, 0]
+from collections import deque
+N, M = map(int, sys.stdin.readline().split())
+field = [sys.stdin.readline() for _ in range(M)]
+all = N*M
+global cnt
+cnt = 0
+order = 100
 
-if N == 1:
-    print(*graph, sep="")
-elif N % 2 == 0:
-    for i in graph_result:
-        print(*i, sep="")
-elif N != 1 and N % 4 == 1:
-    for i in range(R):
-        for j in range(C):
-            if graph[i][j] == 'O':
-                bombArr.append((i, j))
-    for (x, y) in bombArr:
-        for i in range(4):
-            nx = x + xArr[i]
-            ny = y + yArr[i]
-            if (nx < 0 or ny < 0 or nx == R or ny == C):
+def ripen(field, i, j):
+    maxOrder = 100
+    xx = [0, 0, -1, 1]
+    yy = [1, -1, 0, 0]
+    queue = deque([(i, j)])
+    field[i][j] = maxOrder
+    cnt += 1
+    while (queue):
+        (x, y) = queue.popleft()
+        maxOrder += 1
+        for m in range(4):
+            nx = x + xx[m]
+            ny = y + yy[m]
+            if (nx > M or ny > N or nx < 0 or nx <0):
                 continue
-            graph_result[nx][ny] == '.'
-    for i in graph_result:
-        print(*i, sep="")
-else:
-    
+            if field[nx][ny] == 0:
+                field[nx][ny] = maxOrder
+                cnt += 1
+                queue.append((nx, ny))
+            elif field[nx][ny] == -1:
+                field[nx][ny] = -100
+                all -= 1
+    return cnt, maxOrder
 
+
+for i in range(M):
+    for j in range(N):
+        if field[i][j] == 1:
+            cnt, morder = ripen(field, i, j)
+            all -= cnt
+            if morder > order:
+                order = morder
+
+if all == 0:
+    print(order - 100)
+elif all > 0:
+    print(-1)
 
