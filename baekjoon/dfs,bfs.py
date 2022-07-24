@@ -391,48 +391,97 @@
 # 7576 : 토마토
 import sys
 from collections import deque
-N, M = map(int, sys.stdin.readline().split())
-field = [sys.stdin.readline() for _ in range(M)]
-all = N*M
-global cnt
-cnt = 0
+M, N = map(int, sys.stdin.readline().split())
+field = [list(sys.stdin.readline().split()) for _ in range(N)]
+ripe = []
+all = N * M
 order = 100
 
-def ripen(field, i, j):
-    maxOrder = 100
-    xx = [0, 0, -1, 1]
-    yy = [1, -1, 0, 0]
-    queue = deque([(i, j)])
-    field[i][j] = maxOrder
-    cnt += 1
-    while (queue):
-        (x, y) = queue.popleft()
-        maxOrder += 1
-        for m in range(4):
-            nx = x + xx[m]
-            ny = y + yy[m]
-            if (nx > M or ny > N or nx < 0 or nx <0):
-                continue
-            if field[nx][ny] == 0:
-                field[nx][ny] = maxOrder
-                cnt += 1
-                queue.append((nx, ny))
-            elif field[nx][ny] == -1:
-                field[nx][ny] = -100
-                all -= 1
-    return cnt, maxOrder
+def checkRipe(N, M, cnt):
+    for i in range(N):
+        for j in range(M):
+            if field[i][j] == '1':
+                ripe.append((i, j))
+                field[i][j] = 100
+            elif field[i][j] == '-1':
+                if N == 1:
+                    cnt = -100
+                    break
+                cnt -= 1
+    return cnt
+
+def ripen(ripe, order, cnt):
+    xx = [-1, 1, 0, 0]
+    yy = [0, 0, 1, -1]
+    cnt -= len(ripe)
+    while(ripe):
+        store = []
+        order += 1
+        for (x, y) in ripe:
+            for n in range(4):
+                nx = x + xx[n]
+                ny = y + yy[n]
+                if (nx == N or ny == M or nx < 0 or ny < 0):
+                    continue
+                if field[nx][ny] == '0':
+                    field[nx][ny] = order
+                    store.append((nx, ny))
+                    cnt -= 1
+        ripe = store
+    return cnt, order-101
 
 
-for i in range(M):
-    for j in range(N):
-        if field[i][j] == 1:
-            cnt, morder = ripen(field, i, j)
-            all -= cnt
-            if morder > order:
-                order = morder
+cnt = checkRipe(N, M, all)
+cnt, result = ripen(ripe, order, cnt)
 
-if all == 0:
-    print(order - 100)
-elif all > 0:
+if cnt == 0:
+    print(result)
+else:
     print(-1)
 
+
+
+
+
+# cnt = 0
+# order = 100
+# all = N*M
+# def ripen(field, i, j, cnt, all):
+#     maxOrder = 100
+#     xx = [-1, 1, 0, 0, ]
+#     yy = [0, 0, 1, -1]
+#     queue = deque([(i, j)])
+#     field[i][j] = maxOrder
+#     cnt += 1
+#     while (queue):
+#         (x, y) = queue.popleft()
+#         maxOrder = field[x][y] + 1
+#         for m in range(4):
+#             nx = x + xx[m]
+#             ny = y + yy[m]
+#             if (nx == N or ny == M or nx < 0 or nx < 0):
+#                 continue
+#             if field[nx][ny] == '0':
+#                 field[nx][ny] = maxOrder
+#                 cnt += 1
+#                 queue.append((nx, ny))
+#     return cnt, maxOrder
+
+# for i in range(N):
+#     for j in range(M):
+#         if field[i][j] == '1':
+#             cnt, morder = ripen(field, i, j, cnt, all)
+#             all -= cnt
+#             if morder > order:
+#                 order = morder
+#         elif field[i][j] == '-1':
+#             if N == 1:
+#                 all = 1
+#                 break
+#             field[i][j] = -100
+#             all -= 1
+# print(*field, sep="\n")
+# if all > 0:
+#     print(-1)
+# else:
+#     print(order - 101)
