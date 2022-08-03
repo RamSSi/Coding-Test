@@ -441,3 +441,128 @@
 
 
 
+# # 14502 : 연구소
+# import sys
+# from itertools import combinations
+# from collections import deque
+
+# def view():
+#     empty, birus = [], []
+#     for i in range(N):
+#         for j in range(M):
+#             if field[i][j] == '0':
+#                 empty.append((i, j))
+#             elif field[i][j] == '2':
+#                 birus.append((i, j))
+#     return empty, birus
+
+# def setWall(comb):
+#     for r, c in comb:
+#         field[r][c] = '1'
+
+# def collapseWall(comb):
+#     for r, c in comb:
+#         field[r][c] = '0'
+
+# dir = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+# def bfs(safe, virus):
+#     visited = [[False] * M for _ in range(N)]
+#     queue = deque(virus)
+#     while(queue):
+#         r, c = queue.popleft()
+#         for dr, dc in dir:
+#             nr, nc = r + dr, c + dc
+#             if (0 <= nr < N) and (0 <= nc < M):
+#                 if field[nr][nc] == '0' and not visited[nr][nc]:
+#                     visited[nr][nc] = True
+#                     queue.append((nr, nc))
+#                     safe -= 1
+#     return safe
+
+# N, M = map(int, input().split())
+# field = [list(sys.stdin.readline().split()) for _ in range(N)]
+
+
+# empty, virus = view()
+# combs = combinations(empty, 3)
+
+# cnt = 0
+# safe = len(empty) - 3
+# for comb in combs:
+#     setWall(comb)
+
+#     currSafe = bfs(safe, virus)
+    
+#     if currSafe > cnt:
+#         cnt = currSafe
+    
+#     collapseWall(comb)
+
+# print(cnt)
+
+
+
+# # 7569 : 토마토
+# import sys
+
+# def searchRipe(all, cnt):
+#     ripe = []
+#     for h in range(H):
+#         for n in range(N):
+#             for m in range(M):
+#                 if field[h][n][m] == '1':
+#                     field[h][n][m] = cnt
+#                     ripe.append((h, n, m))
+#                     all -= 1
+#                 elif field[h][n][m] == '-1':
+#                     all -= 1
+#     return all, cnt, ripe
+
+# def ripen(ripe, all, cnt):
+#     dirs = [(0, 0, 1), (0, 0, -1), (0, 1, 0), (0, -1, 0), (1, 0, 0), (-1, 0, 0)]
+#     while(ripe):
+#         store = []
+#         cnt += 1
+#         for h, n, m in ripe:
+#             for dh, dn, dm in dirs:
+#                 hh = h + dh
+#                 nn = n + dn
+#                 mm = m + dm
+#                 if 0 <= hh < H and 0 <= nn < N and 0 <= mm < M and field[hh][nn][mm] == '0':
+#                     field[hh][nn][mm] = cnt
+#                     store.append((hh, nn, mm))
+#                     all -= 1
+#         ripe = store
+#     cnt -= 101
+#     return all, cnt
+
+# M, N, H = map(int, input().split())
+# field= [list() for _ in range(H)]
+# for i in range(H):
+#     field[i] = list(sys.stdin.readline().split() for _ in range(N))
+# all = N * M * H
+# cnt = 100
+
+# all, cnt, ripe = searchRipe(all, cnt)
+# all, cnt = ripen(ripe, all, cnt)
+
+# if all == 0:
+#     print(cnt)
+# else:
+#     print(-1)
+
+
+
+# 2636 : 치즈
+import sys
+R, C = map(int, input().split())
+plate = list([sys.stdin.readline().split()] for _ in range(R))
+cheese = list()
+air = list((0, i) for i in range(C))
+for i in range(1, R-1):
+    air.append((i, 0))
+    air.append((i, C-1))
+for i in range(C):
+    air.append((R-1, i))
+print(air)
+print(cheese)
