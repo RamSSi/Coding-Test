@@ -555,14 +555,44 @@
 
 # 2636 : 치즈
 import sys
+from collections import deque
 R, C = map(int, input().split())
 plate = list([sys.stdin.readline().split()] for _ in range(R))
 cheese = list()
-air = list((0, i) for i in range(C))
+air = []
+
+for i in range(C):
+    air.append((0, i))
+    air.append((R-1, i))
 for i in range(1, R-1):
     air.append((i, 0))
     air.append((i, C-1))
-for i in range(C):
-    air.append((R-1, i))
-print(air)
-print(cheese)
+
+dirs = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+
+def setOut():
+    queue = deque(air)
+    while(queue):
+        r, c = queue.popleft()
+        plate[r][c] = 0
+        for dr, dc in dirs:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < R and 0 <= nc < C:
+                if plate[nr][nc] == '0':
+                    queue.append((nr, nc))
+                    plate[nr][nc] = 0
+                elif plate[nr][nc] == '1':
+                    cheese.append((nr, nc))
+                    plate[nr][nc] = 1
+
+def melt():
+    queue = deque(cheese)
+    while(queue):
+        r, c = queue.popleft()
+        plate[r][c] = 0
+        for dr, dc in dirs:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < R and 0 <= nc < C:
+                if plate[nr][nc] == '1':
+                    queue.append((nr, nc))
+                    plate[nr][nc] = 1
