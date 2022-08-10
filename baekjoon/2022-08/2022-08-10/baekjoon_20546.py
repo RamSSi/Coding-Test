@@ -6,7 +6,7 @@ def jhbuy():
     for i in range(14):
         if jhmoney == 0:
             break
-        if jhmoney > pricelist[i]:
+        if jhmoney >= pricelist[i]:
             stock = int(jhmoney/pricelist[i])
             jhstock += stock
             jhmoney -= pricelist[i] * stock 
@@ -31,7 +31,7 @@ def smbuy():
         if inc == 3 and smstock > 0:
             smmoney += smstock * pricelist[day]
             smstock = 0
-        elif dec == 3 and smmoney > pricelist[day]:
+        elif dec == 3 and smmoney >= pricelist[day]:
             stock = int(smmoney/pricelist[day])
             smstock += stock
             smmoney -= pricelist[day] * stock
