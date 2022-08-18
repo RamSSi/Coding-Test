@@ -1,0 +1,57 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day {
+    font-weight: 700;
+    margin: 20px 0 10px 10px;
+}
+
+.problems {
+    overflow: hidden;
+    border-radius: 10px;
+    width: 600px;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.138);
+}
+
+.li.field {
+    background-color: #f5acc7;
+    height: 50px;
+    border-top: none;
+}
+
+.li {
+    width: 600px;
+    display: flex;
+    height: 70px;
+    border-top: 1px solid #9b9b9ba9;
+}
+
+.li > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #9b9b9ba9;
+}
+
+.site {
+    width: 100px;
+}
+
+.number {
+    width: 100px;
+}
+
+.title {
+    width: 300px;
+}
+
+.review {
+    width: 100px;
+    border-right: none;
+}
+
