@@ -6,10 +6,10 @@ K, N = map(int, input().split())
 loop = list(int(input()) for _ in range(K)) 
 print(loop)
 
-loop.reverse()
+loop.sort()
 
 l = 1
-r = loop[0]
+r = loop[-1]
 cnt = 0
 
 length = 0
@@ -23,4 +23,5 @@ while l <= r:
 			l = mid + 1
 		else:
 			r = mid - 1
+	print(mid, length, cnt)
 print(length)
