@@ -3,10 +3,9 @@ import sys
 input = sys.stdin.readline
 
 stick = list(input().strip())
-print(stick)
 stack = []
 cnt = 0
-prev = '0'
+
 for i in range (len(stick)):
     if stick[i] == '(':
         stack.append(stick[i])
@@ -16,5 +15,4 @@ for i in range (len(stick)):
             cnt += len(stack)
         else:
             cnt += 1
-
 print(cnt)
