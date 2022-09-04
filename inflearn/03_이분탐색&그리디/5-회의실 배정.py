@@ -4,46 +4,19 @@ import itertools
 input = sys.stdin.readline
 
 n = int(input())
-mlist = []
 
+meeting = []
 for _ in range(n):
-    s, f = map(int, input().split())
-    mlist.append((s, f))
-comb = []
-for i in range(n, 0, -1):
-    comb.append(list(itertools.combinations(range(n), i)))
+    s, e = map(int, input().split())
+    meeting.append((s, e))
+meeting.sort(key= lambda x: (x[1], x[0]))
 
-print(comb)
-
-def Count(comb):
-    cnt = 0
-    res = []
-    print("시작", comb)
-    for choice in comb:
-        print(choice)
-        if cnt == 0:
-            res.append(mlist[choice])
-            cnt = 1
-            print(res)
-            continue
-        s, f = res[-1]
-        cs, cf = mlist[i]
-        if f <= cs:
-            res.append((cs, cf))
-            print(res)
-            cnt += 1
-    print(res)
-    return cnt
-
+et = 0
 cnt = 0
-for i in range(n):
-    for j in comb[i]:
-        c = Count(j)
-        if c > cnt:
-            cnt = c
-            if c == n:
-                break
-            
-        
+
+for s, e in meeting:
+    if s >= et:
+        et = e
+        cnt += 1
+
 print(cnt)
-    
