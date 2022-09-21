@@ -3,6 +3,8 @@ import sys
 input = sys.stdin.readline
 
 stick = list(input().strip())
+
+
 stack = []
 cnt = 0
 
