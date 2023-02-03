@@ -3,17 +3,15 @@ import sys
 input = sys.stdin.readline
 
 N = int(input().strip())
-w = dict()
+word = dict()
 
-for i in range(N):
-    word = input().strip()
-    w[word] = 1
+for _ in range(N):
+    word[input().strip()] = 0
 
-for i in range(N-1):
-    word = input().strip()
-    w[word] = 0
+for _ in range(N-1):
+    word[input().strip()] = 1
 
-for key, val in w.items():
-    if val == 1:
+for key, val in word.items():
+    if val == 0:
         print(key)
         break
